@@ -1,13 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html" xmlns:p="primefaces" xmlns:f="jakarta.faces.core">
 <h:head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Mi Proyecto JSF 3</title>
-    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
-    <h:outputStylesheet library="css" name="layout.css" />
+    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css"/>
+    <h:outputStylesheet library="css" name="layout.css"/>
 </h:head>
 <h:body>
+    <div class="layout-wrapper">
+        <div class="layout-content">
+            <div class="m-4">
+                <div class="flex justify-content-center flex-wrap">
+                    <h1 class="flex align-items-center justify-content-center font-bold m-2">
+                        CRUD CONTACTOS CON JSF 4.0
+                    </h1>
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <h:form id="form">
+                            <p:growl id="messages" showDetail="true"/>
+
+                            <p:toolbar>
+                                <p:toolbarGroup>
+                                    <p:commandButton value="Nuevo"
+                                                     icon="pi pi-plus"
+                                                     actionListener="#{contactoMB.nuevo()}"
+                                                     update=":dialogs:panel-content"
+                                                     oncomplete="PF('dlgContactoRegistro').show()"
+                                                     styleClass="ui-button-success"
+                                                     style="margin-right: .5rem">
+                                        <p:resetInput target=":dialogs:panel-content"/>
+                                    </p:commandButton>
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </h:form>
+
+                        <h:form id="dialogs">
+                            <p:dialog header="Contacto"
+                                      showEffect="fade"
+                                      modal="true"
+                                      widgetVar="dlgContactoRegistro"
+                                      responsive="true">
+                                <p:outputPanel id="panel-content" class="ui-fluid">
+                                    <p:outputPanel rendered="#{not empty contactoMB.contcto}">
+                                        <div class="field">
+                                            <p:outputLabel for="nombre">Nombre</p:outputLabel>
+                                            <p:inputText id="nombre" value="#{contactoMB.contcto.nombre}"
+                                                         required="true"/>
+                                        </div>
+                                        <div class="field">
+                                            <p:outputLabel for="apellido">Apellido</p:outputLabel>
+                                            <p:inputText id="apellido" value="#{contactoMB.contacto.apellido}"
+                                                         required="true"/>
+                                        </div>
+
+                                        <div class="field">
+                                            <p:outputLabel for="direccion">Direccion</p:outputLabel>
+                                            <p:inputText id="direccion" value="#{contactoMB.contacto.direccion}"
+                                                         required="true"/>
+                                        </div>
+
+                                        <div class="field">
+                                            <p:outputLabel for="telefono">Telefono</p:outputLabel>
+                                            <p:inputText id="telefono" value="#{contactoMB.contacto.telefono}"
+                                                         required="true"/>
+                                        </div>
+
+                                        <div class="field">
+                                            <p:outputLabel for="correo">Correo</p:outputLabel>
+                                            <p:inputText id="correo" value="#{contactoMB.contacto.correo}"
+                                                         required="true"/>
+                                        </div>
+                                    </p:outputPanel>
+                                </p:outputPanel>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Guardar"
+                                                     icon="pi pi-check"
+                                                     actionListener="#{contactoMB.saveProduct}"
+                                                     update="panel-content"
+                                                     process="panel-content @this"/>
+                                    <p:commandButton value="Cancelar"
+                                                     icon="pi pi-times"
+                                                     onclick="PF('dlgContactoRegistro').hide()"
+                                                     class="ui-button-secondary"
+                                                     type="button"/>
+                                </f:facet>
+                            </p:dialog>
+
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </h:body>
 </html>

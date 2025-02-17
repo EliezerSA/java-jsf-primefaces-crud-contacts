@@ -40,4 +40,7 @@ public class Contacto implements Serializable {
     @Column(name = "telefono")
     private String telefono;
 
+    @Column(name = "correo")
+    private String correo;
+
 }
