@@ -2020,3 +2020,14 @@ pre[class*=language-]:after, pre[class*=language-]:before {
     width: 1rem;
     padding: 0
 }
+
+@media screen and (min-width: 1921px) {
+.layout-content-inner{
+    display: block;
+    width: 1478px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+    
+}

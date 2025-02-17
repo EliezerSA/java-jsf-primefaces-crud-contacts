@@ -56,4 +56,12 @@ public class ContactoController implements Serializable {
         PrimeFaces.current().ajax().update("form.messages","form:dt-contacto");
     }
 
+
+    public void eliminar(){
+        contactoService.eliminar(contacto);
+        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Contacto Eliminado"));
+        PrimeFaces.current().executeScript("PF('dlgEliminarContacto').hide()");
+        PrimeFaces.current().ajax().update("form.messages","form:dt-contacto");
+    }
+
 }

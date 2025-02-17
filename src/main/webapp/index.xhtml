@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
     <div class="layout-wrapper">
-        <div class="layout-content">
+        <div class="layout-content layout-content-inner">
             <div class="m-4">
                 <div class="flex justify-content-center flex-wrap">
                     <h1 class="flex align-items-center justify-content-center font-bold m-2">
@@ -85,9 +85,14 @@
                                                                      target="#{contactoMB.contacto}"/>
                                         <p:resetInput target="dialogs:panel-content"/>
                                     </p:commandButton>
-
+                                    <p:commandButton class="ui-button-warning rounded-button"
+                                                     icon="pi pi-trash"
+                                                     process="@this"
+                                                     oncomplete="PF('dlgEliminarContacto').show()">
+                                        <f:setPropertyActionListener value="#{contacto}"
+                                                                     target="#{contactoMB.contacto}" />
+                                    </p:commandButton>
                                 </p:column>
-
                             </p:dataTable>
                         </h:form>
 
@@ -143,7 +148,21 @@
                                                      type="button"/>
                                 </f:facet>
                             </p:dialog>
-
+                            <p:confirmDialog widgetVar="dlgEliminarContacto"
+                                             showEffect="fade"
+                                             width="300"
+                                             message="Eliminar el contacto?"
+                                             header="Confirmar"
+                                             severity="warn">
+                                <p:commandButton value="Si" icon="pi pi-check"
+                                                 actionListener="#{contactoMB.eliminar()}"
+                                                 process="@this"
+                                                 oncomplete="PF('deleteProductDialog').hide()" />
+                                <p:commandButton value="No" type="button"
+                                                 styleClass="ui-button-secondary"
+                                                 icon="pi pi-times"
+                                                 onclick="PF('dlgEliminarContacto').hide()" />
+                            </p:confirmDialog>
                         </h:form>
                     </div>
                 </div>
