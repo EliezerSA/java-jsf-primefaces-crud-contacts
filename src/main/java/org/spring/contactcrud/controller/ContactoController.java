@@ -1,6 +1,7 @@
 package org.spring.contactcrud.controller;
 
 
+import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -12,6 +13,7 @@ import org.spring.contactcrud.model.entities.Contacto;
 import org.spring.contactcrud.service.IContactoService;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -25,12 +27,19 @@ import java.io.Serializable;
 @ViewScoped
 public class ContactoController implements Serializable {
 
+    @EJB
     private IContactoService contactoService;
 
     private Contacto contacto;
+    private List<Contacto> contactos;
 
     public void nuevo(){
         contacto = new Contacto();
+    }
+
+    //Listado de contactos
+    public List<Contacto> getContactos(){
+        return contactos = contactoService.listar();
     }
 
     public void guardar(){
@@ -43,8 +52,8 @@ public class ContactoController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Contacto Editado"));
         }
         nuevo();
-        PrimeFaces.current().executeScript("PF('dlgContactoRegistro').hide();");
-        PrimeFaces.current().ajax().update("form.messages");
+        PrimeFaces.current().executeScript("PF('dlgContactoRegistro').hide()");
+        PrimeFaces.current().ajax().update("form.messages","form:dt-contacto");
     }
 
 }
