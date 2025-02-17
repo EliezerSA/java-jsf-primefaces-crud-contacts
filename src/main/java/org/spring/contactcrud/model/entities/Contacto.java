@@ -26,7 +26,7 @@ public class Contacto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contacto")
-    private int idContacto;
+    private Integer idContacto;
 
     @Column(name = "nombre")
     private String nombre;
